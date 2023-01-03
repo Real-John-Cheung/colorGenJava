@@ -1,2 +1,2 @@
 # colorGenJava
-a color generation thing: start from picking a high contrast color algorithmically 
+A color generation library for Processing and other Java appilication.
