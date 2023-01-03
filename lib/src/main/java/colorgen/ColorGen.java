@@ -432,7 +432,7 @@ public class ColorGen {
     }
 
     private static int[] floatToIntRGB(float r, float g, float b) {
-        return new int[] { Math.round(r), Math.round(g), Math.round(b) };
+        return new int[] { Math.round(r * 255), Math.round(g * 255), Math.round(b * 255) };
     }
 
 }
