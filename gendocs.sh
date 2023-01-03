@@ -1,0 +1,1 @@
+cd ./lib/src/main/java/colorgen && javadoc -d ../../../../../docs/api ColorGen.java 

@@ -7,6 +7,9 @@
 
 package colorgen;
 
+/**
+ * This class provides static functions for color gereration
+ */
 public class ColorGen {
     /**
      * get a random RGB color
