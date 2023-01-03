@@ -333,11 +333,12 @@ public class ColorGen {
     }
 
     /**
-     * mix 3 color to get a new one, use the greyControl to control the grey value (0:low - 1:high)
+     * mix 3 color to get a new one, use the greyControl to control the grey value
+     * (0:low - 1:high)
      * 
-     * @param color1 first color to mix
-     * @param color2 second color to mix
-     * @param color3 third color to mix
+     * @param color1      first color to mix
+     * @param color2      second color to mix
+     * @param color3      third color to mix
      * @param greyControl 0-1, how much grey get mix in
      * @return a color in RGB format
      */
@@ -353,6 +354,81 @@ public class ColorGen {
         return new int[] { Math.round(mixRatio1 * color1[0] + mixRatio2 * color2[0] + mixRatio3 * color3[0]),
                 Math.round(mixRatio1 * color1[1] + mixRatio2 * color2[1] + mixRatio3 * color3[1]),
                 Math.round(mixRatio1 * color1[2] + mixRatio2 * color2[2] + mixRatio3 * color3[2]) };
+    }
+
+    /**
+     * YIQ color contrast calculation, returning black or white determination of
+     * optimal foreground color
+     * 
+     * @param color the foreground color
+     * @return boolean, true for black(dark color) and false for white(bright color)
+     */
+    public static boolean yiq(int[] color) {
+        float y = ((float) color[0] * 299 + (float) color[1] * 587 + (float) color[2] * 114) / 1000;
+        return y >= 128;
+    }
+
+    /**
+     * cast the color array to 24 bit int RGB color
+     * 
+     * @param c the color array [R, G, B]
+     * @return int
+     */
+    public static int to24BitRGB(int[] c) {
+        int r = c[0];
+        int g = c[1];
+        int b = c[2];
+        r = r << 16;
+        g = g << 8;
+        return r | g | b;
+    }
+
+    /**
+     * cast the color array to 32 bit int ARGB color
+     * 
+     * @param c the color array [R, G, B, A]
+     * @return int
+     */
+    public static int to32BitARGB(int[] c) {
+        int a = c[3];
+        int r = c[0];
+        int g = c[1];
+        int b = c[2];
+        a = a << 24;
+        r = r << 16;
+        g = g << 8;
+        return a | r | g | b;
+    }
+
+    /**
+     * cast the color array to 32 bit int ARGB color
+     * 
+     * @param c the color array [R, G, B]
+     * @param a the alpha value between 0 - 255
+     * @return int
+     */
+    public static int to32BitARGB(int[] c, int a) {
+        int r = c[0];
+        int g = c[1];
+        int b = c[2];
+        a = a << 24;
+        r = r << 16;
+        g = g << 8;
+        return a | r | g | b;
+    }
+
+    /**
+     * parse 24bit or 32bit color and output it as an array, only RGB value is
+     * exported
+     * 
+     * @param color
+     * @return
+     */
+    public static int[] parseColor(int color) {
+        int r = color >>> 16 & 0xff;
+        int g = color >>> 8 & 0xff;
+        int b = color & 0xff;
+        return new int[] { r, g, b };
     }
 
     private static int[] floatToIntRGB(float r, float g, float b) {
