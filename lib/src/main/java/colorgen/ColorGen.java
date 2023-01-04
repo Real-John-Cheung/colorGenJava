@@ -177,6 +177,8 @@ public class ColorGen {
             case "UR":
                 for (int i = 0; i < array.length; i++) {
                     float h = from + (float) Math.random() * del;
+                    while(h < 0) h ++;
+                    h = h % 1;
                     array[i] = HSBtoRGB(h, sat, bri);
                 }
                 return array;
@@ -187,15 +189,17 @@ public class ColorGen {
                 return array;
             case "JG":
                 for (int i = 0; i < array.length; i++) {
-                    float maxJitter = 0.5f;
-                    float h = from + i * ((2 * (float) Math.random() - 1) * maxJitter) * del / n;
+                    float maxJitter = (del / n) / 2;
+                    float h = from + i * del / n + ((float)Math.random() * 2 - 1) * maxJitter;
+                    h = h % 1;
                     array[i] = HSBtoRGB(h, sat, bri);
                 }
                 return array;
             case "GR":
-                float offset = (float) Math.random();
                 for (int i = 0; i < array.length; i++) {
-                    float h = from + (offset + (0.618033988749895f * i) % 1) * del / n;
+                    float h = from + (0.618033988749895f * i) % 1;
+                    while(h < 0) h ++;
+                    h = h % 1;
                     array[i] = HSBtoRGB(h, sat, bri);
                 }
                 return array;
