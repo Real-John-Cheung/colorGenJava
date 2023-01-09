@@ -40,6 +40,44 @@ public class ColorGen {
     }
 
     /**
+     * caculate the unweighted Euclidean distance of two RGB colors
+     * 
+     * @param color1 int array representing the first color, [R, G, B] range from 0 - 255
+     * @param color2 int array representing the second color, [R, G, B] range from 0 - 255
+     * @return float, the distance between two color
+     */
+    public static float colorDistanceUnweightedRGB(int[] color1, int[] color2){
+        float dr = color1[0] - color2[0];
+        float dg = color1[1] - color2[1];
+        float db = color1[2] - color2[2];
+        return (float) Math.sqrt(dr*dr + dg*dg + db*db);
+    }
+
+    /**
+     * caculate the unweighted Euclidean distance of two HSB colors in the HSB cone
+     * 
+     * @param color1 float array representing the first color, [H, S, B] range from 0 - 1;
+     * @param color2 float array representing the second color, [H, S, B] range from 0 - 1;
+     * @return float, the distance between two color
+     */
+    public static float colorDistanceHSB(float[] color1, float[] color2) {
+        float h1 = color1[0] * (float) Math.PI * 2;
+        float h2 = color2[0] * (float) Math.PI * 2;
+        float s1 = color1[1];
+        float s2 = color2[1];
+        float b1 = color1[2];
+        float b2 = color2[2];
+        float a1 = s1 * b1 * (float) Math.cos(h1);
+        float a2 = s2 * b2 * (float) Math.cos(h2);
+        float aa1 = s1 * b1 * (float) Math.sin(h1);
+        float aa2 = s2 * b2 * (float) Math.sin(h2);
+        float da = a1 - a2;
+        float db = aa1 - aa2;
+        float dc = b1 - b2;
+        return (float) Math.sqrt(da*da + db*db + dc*dc);
+    }
+
+    /**
      * generate random offset color based on a chosen color
      * 
      * @param baseColor int array representing the chosen color, [R, G, B] range
