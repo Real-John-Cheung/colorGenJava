@@ -10,6 +10,8 @@ To use the library download the `colorgen.jar` file [here](https://real-john-che
 
 or fork this repo and build from source using gradle
 
+for Processing, download the zip file from the release and put the `colorgen` folder under the library directory
+
 ## APIs 
 
 see [this page](https://real-john-cheung.github.io/colorGenJava/api/index.html) for documents on the APIs
